@@ -1,0 +1,36 @@
+﻿@model List<FoodGetVM>
+<div class="container">
+	<a asp-area="Admin" asp-controller="Food" asp-action="Create" class="btn btn-success">Create</a>
+	<div class="row">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">Id</th>
+					<th scope="col">Name</th>
+					<th scope="col">Description</th>
+					<th scope="col">ImagePath</th>
+					<th scope="col">CategoryName</th>
+					<th scope="col">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var food in Model)
+				{
+					<tr>
+						<th scope="row">@food.Id</th>
+						<td>@food.Name</td>
+						<td>@food.Description</td>
+						<td><img src="~/img/@food.ImagePath" /></td>
+						<td>@food.CategoryName</td>
+						<td>
+							<a asp-area="Admin" asp-controller="Food" asp-action="Update" asp-route-id="@food.Id" class="btn btn-warning">Update</a>
+							<a asp-area="Admin" asp-controller="Food" asp-action="Delete" asp-route-id="@food.Id" class="btn btn-danger deleteBtn">Delete</a>
+						</td>
+					</tr>
+				}
+
+
+			</tbody>
+		</table>
+	</div>
+</div>

@@ -16,4 +16,6 @@ public class SimulationDbContext : IdentityDbContext<AppUser>
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         base.OnModelCreating(builder);
     }
+    public DbSet<Food> Foods { get; set; }
+    public DbSet<Category> Categories { get; set; }
 }
