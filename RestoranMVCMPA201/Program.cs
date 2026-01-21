@@ -1,3 +1,8 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using RestoranMVCMPA201.Contexts;
+using RestoranMVCMPA201.Models;
+
 namespace RestoranMVCMPA201
 {
     public class Program
@@ -5,6 +10,20 @@ namespace RestoranMVCMPA201
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            var conn = builder.Configuration.GetConnectionString("DefaultConnection");
+
+            builder.Services.AddDbContext<SimulationDbContext>(opt =>
+            {
+                opt.UseSqlServer(conn);
+            });
+
+            builder.Services.AddIdentity<AppUser, IdentityRole>(opt =>
+            {
+                opt.Password.RequireNonAlphanumeric = true;
+                opt.Password.RequireUppercase = true;
+                opt.Password.RequiredLength = 6;
+            }).AddEntityFrameworkStores<SimulationDbContext>().AddDefaultTokenProviders();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
